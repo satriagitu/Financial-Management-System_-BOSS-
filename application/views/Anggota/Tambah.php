@@ -67,7 +67,7 @@
                                    </div>
                                    <div class="col">
                                         <div class="form-group row">
-                                             <label for="tgl_lahir" class="col-sm-4">Tanggl Lahir</label>
+                                             <label for="tgl_lahir" class="col-sm-4">Tanggal Lahir</label>
                                              <div class="col-sm-8">
                                                   <input type="date" name="tgl_lahir" id="tgl_lahir" class="form-control" value="<?= date('Y-m-d') ?>">
                                              </div>
@@ -136,5 +136,106 @@
      function save() {
           var username = $('#username').val();
           var password = $('#password').val();
+          var nama = $('#nama').val();
+          var no_hp = $('#no_hp').val();
+          var tempat_lahir = $('#tempat_lahir').val();
+          var tgl_lahir = $('#tgl_lahir').val();
+          var jkel = $('#jkel').val();
+          var id_role = $('#id_role').val();
+          var alamat = $('#alamat').val();
+          if (username == '') {
+               Swal.fire({
+                    icon: 'error',
+                    title: 'USERNAME',
+                    text: 'Tidak boleh kosong !',
+               });
+          }
+          if (password == '') {
+               Swal.fire({
+                    icon: 'error',
+                    title: 'PASSWORD',
+                    text: 'Tidak boleh kosong !',
+               });
+          }
+          if (nama == '') {
+               Swal.fire({
+                    icon: 'error',
+                    title: 'NAMA',
+                    text: 'Tidak boleh kosong !',
+               });
+          }
+          if (no_hp == '') {
+               Swal.fire({
+                    icon: 'error',
+                    title: 'NOMOR HP',
+                    text: 'Tidak boleh kosong !',
+               });
+          }
+          if (tempat_lahir == '') {
+               Swal.fire({
+                    icon: 'error',
+                    title: 'TEMPAT LAHIR',
+                    text: 'Tidak boleh kosong !',
+               });
+          }
+          if (tgl_lahir == '') {
+               Swal.fire({
+                    icon: 'error',
+                    title: 'TANGGAL LAHIR',
+                    text: 'Tidak boleh kosong !',
+               });
+          }
+          if (jkel == '') {
+               Swal.fire({
+                    icon: 'error',
+                    title: 'JENIS KELAMIN',
+                    text: 'Tidak boleh kosong !',
+               });
+          }
+          if (id_role == '') {
+               Swal.fire({
+                    icon: 'error',
+                    title: 'TINGKATAN',
+                    text: 'Tidak boleh kosong !',
+               });
+          }
+          if (alamat == '') {
+               Swal.fire({
+                    icon: 'error',
+                    title: 'ALAMAT',
+                    text: 'Tidak boleh kosong !',
+               });
+          }
+          if (username != '' && password != '' && nama != '' && no_hp != '' && tempat_lahir != '' && tgl_lahir != '' && jkel != '' && id_role != '' && alamat != '') {
+               $.ajax({
+                    url: "<?= site_url('Anggota/tambah_aksi') ?>",
+                    data: $('#form-anggota').serialize(),
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function(data) {
+                         if (data.status == 1) {
+                              Swal.fire({
+                                   icon: 'success',
+                                   title: 'Sukses',
+                                   text: 'Save Data Berhasil !',
+                              }).then((value) => {
+                                   location.href = "<?php echo base_url() ?>Anggota";
+                              });
+                         } else if (data.status == 2) {
+                              Swal.fire({
+                                   icon: 'error',
+                                   title: 'Gagal',
+                                   text: 'Save Data Gagal, username sudah di gunakan !',
+                              });
+                         } else {
+                              Swal.fire({
+                                   icon: 'error',
+                                   title: 'Gagal',
+                                   text: 'Save Data Gagal !',
+                              });
+                         }
+                    }
+               });
+          }
      }
 </script>

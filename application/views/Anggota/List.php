@@ -43,7 +43,7 @@
                                                                  <span class="float-right"><?= $a->no_hp; ?></span>
                                                             </td>
                                                             <td><?= $a->alamat; ?></td>
-                                                            <td><?= $a->tempat_lahir . '/' . date('d-m-Y', strtotime($a->tgl_lahir)); ?></td>
+                                                            <td><?= $a->tempat_lahir . ' / ' . date('d-m-Y', strtotime($a->tgl_lahir)); ?></td>
                                                             <td><?= date('d-m-Y', strtotime($a->pembuatan)); ?></td>
                                                             <td class="text-center">
                                                                  <button class="btn btn-warning btn-sm" type="button" title='Edit' onclick="ubah_a(<?= $a->id; ?>)"><i class='fas fa-pencil'></i></button>
