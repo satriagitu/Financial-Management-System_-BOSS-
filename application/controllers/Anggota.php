@@ -57,4 +57,16 @@ class Anggota extends CI_Controller
                echo json_encode(['status' => 1]);
           }
      }
+
+     public function delete($id)
+     {
+          $where = array(
+               'id' => $id,
+          );
+
+          $save = $this->db->delete('user', $where);
+
+          if ($save) echo json_encode(array("status" => true));
+          else echo json_encode(array("status" => false));
+     }
 }

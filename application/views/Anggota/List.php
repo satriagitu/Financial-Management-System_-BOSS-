@@ -34,8 +34,8 @@
                                                   foreach ($anggota as $a) : ?>
                                                        <tr>
                                                             <td><?= $no++; ?></td>
-                                                            <td>
-                                                                 <img src="<?= base_url('assets/img/user/') . $a->gambar; ?>" width="50px" style="border-radius: 50%;">
+                                                            <td class="text-center">
+                                                                 <img src="<?= base_url('assets/img/user/') . $a->gambar; ?>" width="30px" style="border-radius: 50%;">
                                                             </td>
                                                             <td><?= $a->username; ?></td>
                                                             <td><?= $a->nama; ?></td>
@@ -47,7 +47,11 @@
                                                             <td><?= date('d-m-Y', strtotime($a->pembuatan)); ?></td>
                                                             <td class="text-center">
                                                                  <button class="btn btn-warning btn-sm" type="button" title='Edit' onclick="ubah_a(<?= $a->id; ?>)"><i class='fas fa-pencil'></i></button>
-                                                                 <button class="btn btn-danger btn-sm" type="button" title='Hapus' onclick="hapus_a(<?= $a->id; ?>)"><i class='fas fa-trash'></i></button>
+                                                                 <?php if ($a->on_off == 1) : ?>
+                                                                      <button class="btn btn-danger btn-sm" type="button" title='Hapus' disabled><i class='fas fa-trash'></i></button>
+                                                                 <?php else : ?>
+                                                                      <button class="btn btn-danger btn-sm" type="button" title='Hapus' onclick="hapus_a(<?= $a->id; ?>)"><i class='fas fa-trash'></i></button>
+                                                                 <?php endif ?>
                                                             </td>
                                                        </tr>
                                                   <?php endforeach; ?>
@@ -96,5 +100,47 @@
 <script>
      function tambah_a() {
           window.location.href = "<?= site_url('Anggota/tambah') ?>";
+     }
+
+     function hapus_a(id) {
+
+          Swal.fire({
+               title: 'Hapus',
+               text: "Anda yakin ingin hapus data ini ?",
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonColor: '#3085d6',
+               cancelButtonColor: '#d33',
+               confirmButtonText: 'Ya',
+               cancelButtonText: 'Tidak',
+          }).then((result) => {
+               if (result.isConfirmed) {
+
+                    $.ajax({
+                         url: "<?php echo base_url(); ?>Anggota/delete/" + id,
+                         type: "POST",
+                         dataType: "JSON",
+                         success: function(data) {
+                              if (data.status) {
+                                   Swal.fire({
+                                        icon: 'success',
+                                        title: 'Sukses',
+                                        text: 'Hapus Data Berhasil !',
+                                   }).then((value) => {
+                                        location.href = "<?php echo base_url() ?>Anggota";
+                                   });
+                              } else {
+                                   Swal.fire({
+                                        icon: 'error',
+                                        title: 'Gagal',
+                                        text: 'Hapus Data Gagal !',
+                                   });
+                              }
+                         }
+                    });
+
+               }
+          });
+
      }
 </script>
