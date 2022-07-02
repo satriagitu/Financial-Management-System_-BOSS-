@@ -46,11 +46,11 @@
                                                             <td><?= $a->tempat_lahir . ' / ' . date('d-m-Y', strtotime($a->tgl_lahir)); ?></td>
                                                             <td><?= date('d-m-Y', strtotime($a->pembuatan)); ?></td>
                                                             <td class="text-center">
-                                                                 <button class="btn btn-warning btn-sm" type="button" title='Edit' onclick="ubah_a(<?= $a->id; ?>)"><i class='fas fa-pencil'></i></button>
+                                                                 <button class="btn btn-warning btn-sm btn-circle" type="button" title='Edit' onclick="ubah_a(<?= $a->id; ?>)"><i class='fas fa-pencil'></i></button>
                                                                  <?php if ($a->on_off == 1) : ?>
-                                                                      <button class="btn btn-danger btn-sm" type="button" title='Hapus' disabled><i class='fas fa-trash'></i></button>
+                                                                      <button class="btn btn-danger btn-sm btn-circle" type="button" title='Hapus' disabled><i class='fas fa-trash'></i></button>
                                                                  <?php else : ?>
-                                                                      <button class="btn btn-danger btn-sm" type="button" title='Hapus' onclick="hapus_a(<?= $a->id; ?>)"><i class='fas fa-trash'></i></button>
+                                                                      <button class="btn btn-danger btn-sm btn-circle" type="button" title='Hapus' onclick="hapus_a(<?= $a->id; ?>)"><i class='fas fa-trash'></i></button>
                                                                  <?php endif ?>
                                                             </td>
                                                        </tr>
