@@ -24,10 +24,21 @@ class Anggota extends CI_Controller
           ];
           $this->template->load('Template/Content', 'Anggota/Tambah', $data);
      }
+
+     public function ubah($id)
+     {
+          $data = [
+               'judul' => 'Ubah Anggota',
+               'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+               'anggota' => $this->db->get_where('user', ['id' => $id])->row_array(),
+          ];
+          $this->template->load('Template/Content', 'Anggota/Ubah', $data);
+     }
+
      public function tambah_aksi()
      {
           $username = $this->input->post('username');
-          $password = $this->input->post('password');
+          $password = md5($this->input->post('password'));
           $nama = $this->input->post('nama');
           $no_hp = $this->input->post('no_hp');
           $tempat_lahir = $this->input->post('tempat_lahir');
@@ -68,5 +79,19 @@ class Anggota extends CI_Controller
 
           if ($save) echo json_encode(array("status" => true));
           else echo json_encode(array("status" => false));
+     }
+
+     public function ubah_aksi($username)
+     {
+          $this->db->set('nama', $this->input->post('nama'));
+          $this->db->set('no_hp', $this->input->post('no_hp'));
+          $this->db->set('alamat', $this->input->post('alamat'));
+          $this->db->set('tempat_lahir', $this->input->post('tempat_lahir'));
+          $this->db->set('tgl_lahir', $this->input->post('tgl_lahir'));
+          $this->db->set('jkel', $this->input->post('jkel'));
+          $this->db->where('username', $username);
+          $this->db->update('user');
+
+          echo json_encode(array("status" => 1));
      }
 }

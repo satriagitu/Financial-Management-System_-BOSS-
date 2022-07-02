@@ -102,6 +102,10 @@
           window.location.href = "<?= site_url('Anggota/tambah') ?>";
      }
 
+     function ubah_a(id) {
+          window.location.href = "<?= site_url('Anggota/ubah/') ?>" + id;
+     }
+
      function hapus_a(id) {
 
           Swal.fire({
