@@ -26,7 +26,14 @@
                                         <div class="form-group row">
                                              <label for="password" class="col-sm-4">Password</label>
                                              <div class="col-sm-8">
-                                                  <input type="text" name="password" id="password" class="form-control">
+                                                  <div class="input-group mb-2 mr-sm-2">
+                                                       <div class="input-group-prepend">
+                                                            <div class="input-group-text">
+                                                                 <input class="input-group-text" type="checkbox" id="showpass" onclick="showpassword()">
+                                                            </div>
+                                                       </div>
+                                                       <input type="password" class="form-control" id="password" name="password">
+                                                  </div>
                                              </div>
                                         </div>
                                    </div>
@@ -115,3 +122,19 @@
           </div>
      </div>
 </section>
+
+<script>
+     function showpassword() {
+          var password = $('#password').attr('type');
+          if (password == 'password') {
+               $('#password').attr('type', 'text');
+          } else {
+               $('#password').attr('type', 'password');
+          }
+     }
+
+     function save() {
+          var username = $('#username').val();
+          var password = $('#password').val();
+     }
+</script>
