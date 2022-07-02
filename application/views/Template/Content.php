@@ -28,9 +28,9 @@
 
 <body id="page-top">
      <?php
-          if($this->session->userdata('username') == null) 
-			header('location:'.base_url());
-     ?>  
+     if ($this->session->userdata('username') == null)
+          header('location:' . base_url());
+     ?>
      <div id="wrapper">
           <?php if ($this->uri->segment(1) == 'Penjualan') { ?>
                <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion hold-transition sidebar-mini 1 sidebar-toggled 1 toggled" id="accordionSidebar">
@@ -40,14 +40,45 @@
                     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= site_url('Home'); ?>">
                          <div class="sidebar-brand-icon">
                               <img src="<?= base_url('assets/img/logo-sd.png') ?>" class="rounded mt-5" style="width: 70px;">
-                              <?php 
-                                   // echo $user;
-                                   // echo $this->session->userdata('username'); 
+                              <?php
+                              // echo $user;
+                              // echo $this->session->userdata('username'); 
                               ?>
                          </div>
                          <div class="sidebar-brand-text mx-3"></div>
                     </a>
                     <hr class="sidebar-divider my-0 mt-5">
+                    <?php if ($this->uri->segment(1) == 'Anggota') : ?>
+                         <li class="nav-item active">
+                              <a class="nav-link" href="<?= site_url('Anggota'); ?>">
+                                   <i class="fas fa-fw fa-users"></i>
+                                   <span>Anggota</span>
+                              </a>
+                         </li>
+                    <?php else : ?>
+                         <li class="nav-item">
+                              <a class="nav-link" href="<?= site_url('Anggota'); ?>">
+                                   <i class="fas fa-fw fa-users"></i>
+                                   <span>Anggota</span>
+                              </a>
+                         </li>
+                    <?php endif; ?>
+                    <?php if ($this->uri->segment(1) == 'Role') : ?>
+                         <li class="nav-item active">
+                              <a class="nav-link" href="<?= site_url('Role'); ?>">
+                                   <i class="fas fa-fw fa-user-tag"></i>
+                                   <span>Role</span>
+                              </a>
+                         </li>
+                    <?php else : ?>
+                         <li class="nav-item">
+                              <a class="nav-link" href="<?= site_url('Role'); ?>">
+                                   <i class="fas fa-fw fa-user-tag"></i>
+                                   <span>Role</span>
+                              </a>
+                         </li>
+                    <?php endif; ?>
+                    <hr class="sidebar-divider my-0">
                     <?php if ($this->uri->segment(1) == 'Beranda') : ?>
                          <li class="nav-item active">
                               <a class="nav-link" href="<?= site_url('Beranda'); ?>">
@@ -67,14 +98,14 @@
                     <?php if ($this->uri->segment(1) == 'Perencanaan') : ?>
                          <li class="nav-item active">
                               <a class="nav-link" href="<?= site_url('Perencanaan'); ?>">
-                                   <i class="fas fa-fw fa-tachometer-alt"></i>
+                                   <i class="fas fa-fw fa-th-list"></i>
                                    <span>Perencanaan</span>
                               </a>
                          </li>
                     <?php else : ?>
                          <li class="nav-item">
                               <a class="nav-link" href="<?= site_url('Perencanaan'); ?>">
-                                   <i class="fas fa-fw fa-tachometer-alt"></i>
+                                   <i class="fas fa-fw fa-th-list"></i>
                                    <span>Perencanaan</span>
                               </a>
                          </li>
@@ -83,15 +114,15 @@
                     <?php if ($this->uri->segment(1) == 'Buku') : ?>
                          <li class="nav-item active">
                               <a class="nav-link" href="<?= site_url('Buku'); ?>">
-                                   <i class="fas fa-fw fa-tachometer-alt"></i>
-                                   <span>Buku</span>
+                                   <i class="fas fa-fw fa-bookmark"></i>
+                                   <span>BKU</span>
                               </a>
                          </li>
                     <?php else : ?>
                          <li class="nav-item">
                               <a class="nav-link" href="<?= site_url('Buku'); ?>">
-                                   <i class="fas fa-fw fa-tachometer-alt"></i>
-                                   <span>Buku</span>
+                                   <i class="fas fa-fw fa-bookmark"></i>
+                                   <span>BKU</span>
                               </a>
                          </li>
                     <?php endif; ?>
@@ -99,14 +130,14 @@
                     <?php if ($this->uri->segment(1) == 'Kwitansi') : ?>
                          <li class="nav-item active">
                               <a class="nav-link" href="<?= site_url('Kwitansi'); ?>">
-                                   <i class="fas fa-fw fa-tachometer-alt"></i>
+                                   <i class="fas fa-fw fa-receipt"></i>
                                    <span>Kwitansi</span>
                               </a>
                          </li>
                     <?php else : ?>
                          <li class="nav-item">
                               <a class="nav-link" href="<?= site_url('Kwitansi'); ?>">
-                                   <i class="fas fa-fw fa-tachometer-alt"></i>
+                                   <i class="fas fa-fw fa-receipt"></i>
                                    <span>Kwitansi</span>
                               </a>
                          </li>
@@ -115,14 +146,14 @@
                     <?php if ($this->uri->segment(1) == 'Laporan') : ?>
                          <li class="nav-item active">
                               <a class="nav-link" href="<?= site_url('Laporan'); ?>">
-                                   <i class="fas fa-fw fa-tachometer-alt"></i>
+                                   <i class="fas fa-fw fa-book-open"></i>
                                    <span>Laporan</span>
                               </a>
                          </li>
                     <?php else : ?>
                          <li class="nav-item">
                               <a class="nav-link" href="<?= site_url('Laporan'); ?>">
-                                   <i class="fas fa-fw fa-tachometer-alt"></i>
+                                   <i class="fas fa-fw fa-book-open"></i>
                                    <span>Laporan</span>
                               </a>
                          </li>
