@@ -18,7 +18,8 @@
                               </div>
                          </div>
                          <div class="col my-auto">
-                              <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" type="button" onclick="cari()">Cari</button>
+                              <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" type="button" id="cari" onclick="carix()">Cari</button>
+                              <button class="btn btn-primary" id="beranda" style="width: 100%; margin-top: 10px;" type="button" onclick="berandax()">Beranda</button>
                          </div>
                     </div>
                </div>
@@ -73,10 +74,21 @@
 
 <script>
      $('#beranda_4').hide();
+     $('#beranda').hide();
 
-     function cari() {
+     function carix() {
           $('#beranda_2').hide('200');
           $('#beranda_3').hide('200');
           $('#beranda_4').show('200');
+          $('#cari').hide();
+          $('#beranda').show();
+     }
+
+     function berandax() {
+          $('#beranda_2').show('200');
+          $('#beranda_3').show('200');
+          $('#beranda_4').hide('200');
+          $('#cari').show();
+          $('#beranda').hide();
      }
 </script>
