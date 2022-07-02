@@ -124,6 +124,10 @@
 </section>
 
 <script>
+     function back_page_before() {
+          window.location.href = "<?= site_url('Anggota') ?>";
+     }
+
      function showpassword() {
           var password = $('#password').attr('type');
           if (password == 'password') {

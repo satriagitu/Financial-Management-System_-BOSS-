@@ -96,6 +96,10 @@
 </section>
 
 <script>
+     function back_page_before() {
+          window.location.href = "<?= site_url('Anggota') ?>";
+     }
+
      function savey() {
           var username = $('#username').val();
           var nama = $('#nama').val();
