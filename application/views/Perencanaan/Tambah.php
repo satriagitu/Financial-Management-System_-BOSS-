@@ -18,12 +18,12 @@
                                         <div class="form-group row">
                                              <label for="pendidikan" class="col-sm-4">Standar Pendidikan</label>
                                              <div class="col-sm-8">
-                                                  <select name="standar_pendidikan" id="standar_pendidikan" class="form-control">
+                                                  <select name="standar_pendidikan" id="standar_pendidikan" class="form-control select2_standar">
                                                        <option value="">-- Pilih --</option>
                                                        <?php
-                                                            foreach($standar_pendidikan as $row){
-                                                                 echo "<option value=".$row->id.">".$row->standar_pendidikan."</option>";
-                                                            }
+                                                       foreach ($standar_pendidikan as $row) {
+                                                            echo "<option value=" . $row->id . ">" . $row->standar_pendidikan . "</option>";
+                                                       }
                                                        ?>
                                                   </select>
                                              </div>
@@ -31,12 +31,12 @@
                                         <div class="form-group row">
                                              <label for="kegiatan" class="col-sm-4">Nama Kegiatan</label>
                                              <div class="col-sm-8">
-                                                  <select name="nama_kegiatan" id="nama_kegiatan" class="form-control">
+                                                  <select name="nama_kegiatan" id="nama_kegiatan" class="form-control select2_nama_kegiatan">
                                                        <option value="">-- Pilih --</option>
                                                        <?php
-                                                            foreach($nama_kegiatan as $row){
-                                                                 echo "<option value=".$row->id.">".$row->nama_kegiatan."</option>";
-                                                            }
+                                                       foreach ($nama_kegiatan as $row) {
+                                                            echo "<option value=" . $row->id . ">" . $row->nama_kegiatan . "</option>";
+                                                       }
                                                        ?>
                                                   </select>
                                              </div>
@@ -44,12 +44,12 @@
                                         <div class="form-group row">
                                              <label for="program" class="col-sm-4">Program</label>
                                              <div class="col-sm-8">
-                                                  <select name="program" id="program" class="form-control">
+                                                  <select name="program" id="program" class="form-control select2_program">
                                                        <option value="">-- Pilih --</option>
                                                        <?php
-                                                            foreach($program as $row){
-                                                                 echo "<option value=".$row->id.">".$row->program."</option>";
-                                                            }
+                                                       foreach ($program as $row) {
+                                                            echo "<option value=" . $row->id . ">" . $row->program . "</option>";
+                                                       }
                                                        ?>
                                                   </select>
                                              </div>
@@ -57,20 +57,14 @@
                                         <div class="form-group row">
                                              <label for="subprogram" class="col-sm-4">Subprogram</label>
                                              <div class="col-sm-8">
-                                                  <select name="sub_program" id="sub_program" class="form-control">
+                                                  <select name="sub_program" id="sub_program" class="form-control select2_sub_program">
                                                        <option value="">-- Pilih --</option>
                                                        <?php
-                                                            foreach($sub_program as $row){
-                                                                 echo "<option value=".$row->id.">".$row->sub_program."</option>";
-                                                            }
+                                                       foreach ($sub_program as $row) {
+                                                            echo "<option value=" . $row->id . ">" . $row->sub_program . "</option>";
+                                                       }
                                                        ?>
                                                   </select>
-                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                             <label for="uraian" class="col-sm-4">Uraian</label>
-                                             <div class="col-sm-8">
-                                                  <textarea name="uraian" id="uraian" class="form-control"></textarea>
                                              </div>
                                         </div>
                                         <div class="form-group row">
@@ -79,36 +73,11 @@
                                                   <select name="triwulan" id="triwulan" class="form-control">
                                                        <option value="">-- Pilih --</option>
                                                        <?php
-                                                            foreach($triwulan as $row){
-                                                                 echo "<option value=".$row->id.">".$row->triwulan."</option>";
-                                                            }
+                                                       foreach ($triwulan as $row) {
+                                                            echo "<option value=" . $row->id . ">" . $row->triwulan . "</option>";
+                                                       }
                                                        ?>
                                                   </select>
-                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                             <label for="volume" class="col-sm-4">Volume</label>
-                                             <div class="col-sm-8">
-                                                  <input type="text" name="volume" id="volume" class="form-control">
-                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                             <label for="satuan" class="col-sm-4">Satuan</label>
-                                             <div class="col-sm-8">
-                                                  <select name="satuan" id="satuan" class="form-control">
-                                                       <option value="">-- Pilih --</option>
-                                                       <?php
-                                                            foreach($satuan as $row){
-                                                                 echo "<option value=".$row->id.">".$row->satuan."</option>";
-                                                            }
-                                                       ?>
-                                                  </select>
-                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                             <label for="harga_satuan" class="col-sm-4">Harga Satuan</label>
-                                             <div class="col-sm-8">
-                                                  <input type="text" name="harga_satuan" id="harga_satuan" class="form-control">
                                              </div>
                                         </div>
                                    </div>
@@ -127,20 +96,25 @@
 
 <!-- kembali perencanaan -->
 <script>
+     $(".select2_standar").select2();
+     $(".select2_nama_kegiatan").select2();
+     $(".select2_program").select2();
+     $(".select2_sub_program").select2();
+
      function kembali_perencanaan() {
           window.location.href = "<?= site_url('Perencanaan') ?>";
      }
 
      function save() {
-          var standar_pendidikan   = document.getElementById('standar_pendidikan').value;
-          var nama_kegiatan        = document.getElementById('nama_kegiatan').value;
-          var program              = document.getElementById('program').value;
-          var sub_program          = document.getElementById('sub_program').value;
-          var uraian               = document.getElementById('uraian').value;
-          var triwulan             = document.getElementById('triwulan').value;
-          var volume               = document.getElementById('volume').value;
-          var satuan               = document.getElementById('satuan').value;
-          var harga_satuan         = document.getElementById('harga_satuan').value;
+          var standar_pendidikan = document.getElementById('standar_pendidikan').value;
+          var nama_kegiatan = document.getElementById('nama_kegiatan').value;
+          var program = document.getElementById('program').value;
+          var sub_program = document.getElementById('sub_program').value;
+          var uraian = document.getElementById('uraian').value;
+          var triwulan = document.getElementById('triwulan').value;
+          var volume = document.getElementById('volume').value;
+          var satuan = document.getElementById('satuan').value;
+          var harga_satuan = document.getElementById('harga_satuan').value;
 
           if (standar_pendidikan == '') {
                Swal.fire({
@@ -199,16 +173,16 @@
                });
           }
 
-          if (standar_pendidikan != '' 
-               && nama_kegiatan != ''
-               && program != ''
-               && sub_program != ''
-               && uraian != ''
-               && triwulan != ''
-               && volume != ''
-               && satuan != ''
-               && harga_satuan != ''
-               ) {
+          if (standar_pendidikan != '' &&
+               nama_kegiatan != '' &&
+               program != '' &&
+               sub_program != '' &&
+               uraian != '' &&
+               triwulan != '' &&
+               volume != '' &&
+               satuan != '' &&
+               harga_satuan != ''
+          ) {
 
                $.ajax({
                     url: "<?php echo base_url(); ?>Perencanaan/save_add",

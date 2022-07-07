@@ -6,7 +6,7 @@ class Perencanaan extends CI_Controller
      function __construct()
      {
           parent::__construct();
-		$this->load->model('M_perencanaan');
+          $this->load->model('M_perencanaan');
      }
 
      public function index()
@@ -18,7 +18,7 @@ class Perencanaan extends CI_Controller
           ];
           $this->template->load('Template/Content', 'Perencanaan/Data', $data);
      }
-     
+
      public function tambah()
      {
           $data = [
@@ -50,19 +50,19 @@ class Perencanaan extends CI_Controller
                'triwulan' => $this->M_perencanaan->get_triwulan(),
                'satuan' => $this->M_perencanaan->get_satuan(),
           ];
-          if(count($dt) > 0) $this->template->load('Template/Content', 'Perencanaan/Edit', $data);
-          else header('location:'.base_url().'Perencanaan');
+          if (count($dt) > 0) $this->template->load('Template/Content', 'Perencanaan/Edit', $data);
+          else header('location:' . base_url() . 'Perencanaan');
      }
 
      public function delete($id)
-     {          
+     {
           $where = array(
                'id' => $id,
           );
-          
+
           $save = $this->M_perencanaan->delete($where);
-          
-          if($save) echo json_encode(array("status" => true));
+
+          if ($save) echo json_encode(array("status" => true));
           else echo json_encode(array("status" => false));
      }
 
@@ -79,13 +79,13 @@ class Perencanaan extends CI_Controller
                'satuan' => $this->input->post('satuan'),
                'harga_satuan' => $this->input->post('harga_satuan'),
           );
-          
+
           $save = $this->M_perencanaan->save($data);
 
-          if($save) echo json_encode(array("status" => true));
+          if ($save) echo json_encode(array("status" => true));
           else echo json_encode(array("status" => false));
      }
-     
+
      public function save_edit($id)
      {
           $data = array(
@@ -103,11 +103,10 @@ class Perencanaan extends CI_Controller
           $where = array(
                'id' => $id,
           );
-          
+
           $save = $this->M_perencanaan->update($data, $where);
-          
-          if($save) echo json_encode(array("status" => true));
+
+          if ($save) echo json_encode(array("status" => true));
           else echo json_encode(array("status" => false));
      }
-
 }
