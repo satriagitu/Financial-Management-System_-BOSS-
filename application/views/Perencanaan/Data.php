@@ -17,49 +17,44 @@
                                    <div class="table-responsive">
                                         <table id="table-perencanaan" class="table table-striped table-bordered table-hover">
                                              <thead>
-                                                  <tr>
-                                                       <th scope="col">No</th>
-                                                       <th scope="col">Standart Pendidikan</th>
-                                                       <th scope="col">Nama Kegiatan</th>
-                                                       <th scope="col">Program</th>
-                                                       <th scope="col">Sub Program</th>
-                                                       <th scope="col">Uraian</th>
-                                                       <th scope="col">Triwulan</th>
-                                                       <th scope="col">Volume</th>
-                                                       <th scope="col">Satuan</th>
-                                                       <th scope="col">Harga Satuan</th>
-                                                       <th scope="col">Action</th>
+                                                  <tr class="text-center">
+                                                       <th width="1%">No</th>
+                                                       <th>Standart Pendidikan</th>
+                                                       <th>Nama Kegiatan</th>
+                                                       <th>Program</th>
+                                                       <th>Sub Program</th>
+                                                       <th>Triwulan</th>
+                                                       <th width="10%">Subtotal</th>
+                                                       <th width="10%">Total</th>
+                                                       <th width="10%">Aksi</th>
                                                   </tr>
                                              </thead>
                                              <tbody>
                                                   <?php
-                                                       $no = 0;
-                                                       foreach($data as $row){
-                                                            echo "                                   
-                                                                      <tr>
-                                                                           <th scope='row'>".($no+1)."</th>
-                                                                           <td>$row->standar_pendidikan</td>
-                                                                           <td>$row->nama_kegiatan</td>
-                                                                           <td>$row->program</td>
-                                                                           <td>$row->sub_program</td>
-                                                                           <td>$row->uraian</td>
-                                                                           <td>$row->triwulan</td>
-                                                                           <td>$row->volume</td>
-                                                                           <td>$row->satuan</td>
-                                                                           <td>".number_format($row->harga_satuan,0,',','.')."</td>
-                                                                           <td>
-                                                                                <a href='".base_url().'Perencanaan/edit/'.$row->id."' class='btn btn-success btn-circle btn-sm' title='Edit'>
-                                                                                     <i class='fas fa-pencil'></i>
-                                                                                </a>
-                                                                                <a href='#' onclick='hapus($row->id)' class='btn btn-danger btn-circle btn-sm' title='Hapus'>
-                                                                                     <i class='fas fa-trash'></i>
-                                                                                </a>
-                                                                           </td>
-                                                                      </tr>
-                                                                 ";
-                                                            $no++;
-                                                       }
-                                                  ?>
+                                                  $no = 1;
+                                                  foreach ($data as $row) : ?>
+                                                       <tr>
+                                                            <th><?= $no++; ?></th>
+                                                            <td><?= $row->standar_pendidikan; ?></td>
+                                                            <td><?= $row->nama_kegiatan; ?></td>
+                                                            <td><?= $row->program; ?></td>
+                                                            <td><?= $row->sub_program; ?></td>
+                                                            <td class="text-right"><?= $row->triwulan; ?></td>
+                                                            <td>
+                                                                 Rp. <span class="float-right"><?= number_format($row->subtotal); ?></span>
+                                                            </td>
+                                                            <td>
+                                                                 Rp. <span class="float-right"><?= number_format($row->total); ?></span>
+                                                            <td class="text-center">
+                                                                 <a href="<?= site_url('Perencanaan/edit/') . $row->id; ?>" class='btn btn-success btn-circle btn-sm' title='Edit'>
+                                                                      <i class='fas fa-pencil'></i>
+                                                                 </a>
+                                                                 <a href='#' onclick='hapus(<?= $row->id; ?>)' class='btn btn-danger btn-circle btn-sm' title='Hapus'>
+                                                                      <i class='fas fa-trash'></i>
+                                                                 </a>
+                                                            </td>
+                                                       </tr>
+                                                  <?php endforeach; ?>
                                              </tbody>
                                         </table>
                                    </div>
@@ -108,9 +103,9 @@
      function tambah_perencanaan() {
           window.location.href = "<?= site_url('Perencanaan/tambah') ?>";
      }
-     
-     function hapus(id){
-          
+
+     function hapus(id) {
+
           Swal.fire({
                title: 'Hapus',
                text: "Anda yakin ingin hapus data ini ?",
@@ -122,7 +117,7 @@
                cancelButtonText: 'Tidak',
           }).then((result) => {
                if (result.isConfirmed) {
-                    
+
                     $.ajax({
                          url: "<?php echo base_url(); ?>Perencanaan/delete/" + id,
                          type: "POST",
@@ -146,9 +141,9 @@
                               }
                          }
                     });
-                    
+
                }
           });
-          
+
      }
 </script>

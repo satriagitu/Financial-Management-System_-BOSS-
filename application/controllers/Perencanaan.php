@@ -19,6 +19,13 @@ class Perencanaan extends CI_Controller
           $this->template->load('Template/Content', 'Perencanaan/Data', $data);
      }
 
+     public function data_detail()
+     {
+          $id = $this->input->get('id_perencanaan');
+          $data = $this->db->get_where('perencanaan_uraian', ['id_perencanaan' => $id])->row_array();
+          echo json_encode($data);
+     }
+
      public function tambah()
      {
           $data = [
@@ -73,17 +80,34 @@ class Perencanaan extends CI_Controller
                'nama_kegiatan' => $this->input->post('nama_kegiatan'),
                'program' => $this->input->post('program'),
                'sub_program' => $this->input->post('sub_program'),
-               'uraian' => $this->input->post('uraian'),
                'triwulan' => $this->input->post('triwulan'),
-               'volume' => $this->input->post('volume'),
-               'satuan' => $this->input->post('satuan'),
-               'harga_satuan' => $this->input->post('harga_satuan'),
+               'subtotal' => $this->input->get('subtotal'),
+               'total' => $this->input->get('total'),
           );
 
-          $save = $this->M_perencanaan->save($data);
-
-          if ($save) echo json_encode(array("status" => true));
-          else echo json_encode(array("status" => false));
+          $this->M_perencanaan->save($data);
+          echo json_encode(['status' => 1]);
+     }
+     public function detail()
+     {
+          $get_id = $this->db->query("SELECT id FROM perencanaan order by id desc limit 1")->result();
+          foreach ($get_id as $gi) {
+               $id_perencanaan = $gi->id;
+          }
+          $namabarang = $this->input->get('namabarang');
+          $satuan = $this->input->get('satuan');
+          $qty = $this->input->get('qty');
+          $harga = $this->input->get('harga');
+          $jumlah = $this->input->get('jumlah');
+          $data = [
+               'id_perencanaan' => $id_perencanaan,
+               'namabarang' => $namabarang,
+               'satuan' => $satuan,
+               'qty' => $qty,
+               'harga' => $harga,
+               'jumlah' => $jumlah,
+          ];
+          $this->db->insert('perencanaan_uraian', $data);
      }
 
      public function save_edit($id)
