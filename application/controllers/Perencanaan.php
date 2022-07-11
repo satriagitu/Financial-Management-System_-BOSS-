@@ -46,6 +46,7 @@ class Perencanaan extends CI_Controller
      public function edit($id)
      {
           $dt = $this->M_perencanaan->select($id);
+          $detail = $this->db->get_where('perencanaan_uraian', ['id_perencanaan' => $id]);
 
           $data = [
                'judul' => 'Perencanaan',
@@ -58,6 +59,8 @@ class Perencanaan extends CI_Controller
                'sub_program' => $this->M_perencanaan->get_sub_program(),
                'triwulan' => $this->M_perencanaan->get_triwulan(),
                'satuan' => $this->M_perencanaan->get_satuan(),
+               'detail' => $detail->result(),
+               'jumdata' => $detail->num_rows(),
           ];
           if (count($dt) > 0) $this->template->load('Template/Content', 'Perencanaan/Edit', $data);
           else header('location:' . base_url() . 'Perencanaan');
