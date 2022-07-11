@@ -96,7 +96,7 @@
                                                             <th>Delete</th>
                                                             <th width="20%">Nama Barang</th>
                                                             <th>Satuan</th>
-                                                            <th width="10%">QTY</th>
+                                                            <th width="10%">Volume</th>
                                                             <th>Harga</th>
                                                             <th>Jumlah</th>
                                                        </tr>
