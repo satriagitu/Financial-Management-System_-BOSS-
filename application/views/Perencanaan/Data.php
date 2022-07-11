@@ -9,6 +9,9 @@
                                    <a type="button" href="#" class="btn btn-primary float-right my-auto" onclick="tambah_perencanaan()">
                                         <i class="fas fa-plus-circle"></i> Tambah Data
                                    </a>
+                                   <a type="button" href="#" class="btn btn-secondary float-right my-auto mr-2" onclick="unggah_perencanaan()">
+                                        <i class="fas fa-upload"></i> Unggah Data
+                                   </a>
                               </h3>
                          </div>
                          <hr>
@@ -66,6 +69,30 @@
      </div>
 </section>
 
+<div class="modal fade" id="unggah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-dialog-centered modal-sm">
+          <div class="modal-content">
+               <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Unggah Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                    </button>
+               </div>
+               <form action="<?= base_url('Perencanaan/upload'); ?>" enctype="multipart/form-data" method="POST">
+                    <div class="modal-body">
+                         <div class="form-group">
+                              <input type="file" name="userfile" class="form-control-user">
+                         </div>
+                    </div>
+                    <div class="modal-footer">
+                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                         <button type="submit" class="btn btn-success">Unggah</button>
+                    </div>
+               </form>
+          </div>
+     </div>
+</div>
+
 <!-- datatable -->
 <script>
      $(document).ready(function() {
@@ -102,6 +129,10 @@
 <script>
      function tambah_perencanaan() {
           window.location.href = "<?= site_url('Perencanaan/tambah') ?>";
+     }
+
+     function unggah_perencanaan() {
+          $('#unggah').modal('show');
      }
 
      function hapus(id) {

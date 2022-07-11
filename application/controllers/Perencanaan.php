@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+include APPPATH . 'third_party/PHPExcel/PHPExcel.php';
+
 class Perencanaan extends CI_Controller
 {
      function __construct()
@@ -132,5 +134,40 @@ class Perencanaan extends CI_Controller
 
           if ($save) echo json_encode(array("status" => true));
           else echo json_encode(array("status" => false));
+     }
+
+     public function upload()
+     {
+          $config['upload_path'] = realpath('excel');
+          $config['allowed_types'] = 'xlsx|xls|csv';
+          $config['max_size'] = '10000';
+          $config['encrypt_name'] = true;
+          $this->load->library('upload', $config);
+          if (!$this->upload->do_upload()) {
+               redirect('Perencanaan');
+          } else {
+               $data_upload = $this->upload->data();
+               $excelreader = new PHPExcel_Reader_Excel2007();
+               $loadexcel = $excelreader->load('excel/' . $data_upload['file_name']);
+               $sheet = $loadexcel->getActiveSheet()->toArray(null, true, true, true);
+               $data = array();
+               $numrow = 1;
+               foreach ($sheet as $row) {
+                    if ($numrow > 1) {
+                         array_push($data, array(
+                              'id_perencanaan' => $row['A'],
+                              'namabarang' => $row['B'],
+                              'satuan' => $row['C'],
+                              'qty' => $row['D'],
+                              'harga' => $row['E'],
+                              'jumlah' => $row['F'],
+                         ));
+                    }
+                    $numrow++;
+               }
+               $this->db->insert_batch('perencanaan_uraian', $data);
+               unlink(realpath('excel/' . $data_upload['file_name']));
+               redirect('Perencanaan');
+          }
      }
 }
