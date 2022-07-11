@@ -53,6 +53,7 @@ class Perencanaan extends CI_Controller
                'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
                'id' => $id,
                'data' => $dt,
+               'perencanaan' => $this->db->get_where('perencanaan', ['id' => $id])->row_array(),
                'standar_pendidikan' => $this->M_perencanaan->get_standar_pendidikan(),
                'nama_kegiatan' => $this->M_perencanaan->get_nama_kegiatan(),
                'program' => $this->M_perencanaan->get_program(),
@@ -122,11 +123,9 @@ class Perencanaan extends CI_Controller
                'nama_kegiatan' => $this->input->post('nama_kegiatan'),
                'program' => $this->input->post('program'),
                'sub_program' => $this->input->post('sub_program'),
-               'uraian' => $this->input->post('uraian'),
                'triwulan' => $this->input->post('triwulan'),
-               'volume' => $this->input->post('volume'),
-               'satuan' => $this->input->post('satuan'),
-               'harga_satuan' => $this->input->post('harga_satuan'),
+               'subtotal' => $this->input->get('sub_total'),
+               'total' => $this->input->get('total'),
           );
 
           $where = array(
@@ -137,6 +136,21 @@ class Perencanaan extends CI_Controller
 
           if ($save) echo json_encode(array("status" => true));
           else echo json_encode(array("status" => false));
+     }
+
+     public function update_multi($id)
+     {
+          $data = [
+               'namabarang' => $this->input->get('namabarang'),
+               'satuan' => $this->input->get('satuan'),
+               'qty' => $this->input->get('qty'),
+               'harga' => $this->input->get('harga'),
+               'jumlah' => $this->input->get('jumlah'),
+          ];
+          $where = [
+               'id' => $id,
+          ];
+          $this->db->update('perencanaan_uraian', $data, $where);
      }
 
      public function upload()

@@ -21,6 +21,7 @@
                                         <div class="form-group row">
                                              <label for="pendidikan" class="col-sm-4">Standar Pendidikan</label>
                                              <div class="col-sm-8">
+                                                  <input type="hidden" id="id" name="id" value="<?= $id ?>">
                                                   <select name="standar_pendidikan" id="standar_pendidikan" class="form-control select2_standar">
                                                        <option value="">-- Pilih --</option>
                                                        <?php
@@ -157,7 +158,7 @@
                                                   <label for="sub_total" class="col-form-label">Sub total</label>
                                              </div>
                                              <div class="col-8">
-                                                  <input type="text" id="sub_total" name="sub_total" class="form-control" readonly value="0">
+                                                  <input type="text" id="sub_total" name="sub_total" class="form-control" readonly value="<?= number_format($perencanaan['subtotal']); ?>">
                                              </div>
                                         </div>
                                         <div class="row g-3 align-items-center mb-3">
@@ -165,7 +166,7 @@
                                                   <label for="total" class="col-form-label">Total</label>
                                              </div>
                                              <div class="col-8">
-                                                  <input type="text" id="total" name="total" class="form-control" readonly value="0">
+                                                  <input type="text" id="total" name="total" class="form-control" readonly value="<?= number_format($perencanaan['total']) ?>">
                                              </div>
                                         </div>
                                    </div>
@@ -304,15 +305,20 @@
      }
 
      function save() {
+          var id = document.getElementById('id').value;
           var standar_pendidikan = document.getElementById('standar_pendidikan').value;
           var nama_kegiatan = document.getElementById('nama_kegiatan').value;
           var program = document.getElementById('program').value;
           var sub_program = document.getElementById('sub_program').value;
-          var uraian = document.getElementById('uraian').value;
           var triwulan = document.getElementById('triwulan').value;
-          var volume = document.getElementById('volume').value;
-          var satuan = document.getElementById('satuan').value;
-          var harga_satuan = document.getElementById('harga_satuan').value;
+          var sub_totalx = document.getElementById('sub_total').value;
+          var sub_total = Number(parseInt(sub_totalx.replaceAll(',', '')));
+          var totalx = document.getElementById('total').value;
+          var total = Number(parseInt(totalx.replaceAll(',', '')));
+
+          var table = document.getElementById('datatable');
+          var rowCount = table.rows.length;
+
 
           if (standar_pendidikan == '') {
                Swal.fire({
@@ -342,13 +348,6 @@
                     text: 'Tidak boleh kosong !',
                });
           }
-          if (uraian == '') {
-               Swal.fire({
-                    icon: 'danger',
-                    title: 'Uraian',
-                    text: 'Tidak boleh kosong !',
-               });
-          }
           if (triwulan == '') {
                Swal.fire({
                     icon: 'danger',
@@ -356,39 +355,68 @@
                     text: 'Tidak boleh kosong !',
                });
           }
-          if (volume == '') {
-               Swal.fire({
-                    icon: 'danger',
-                    title: 'Volume',
-                    text: 'Tidak boleh kosong !',
-               });
-          }
-          if (harga_satuan == '') {
-               Swal.fire({
-                    icon: 'danger',
-                    title: 'Harga Satuan',
-                    text: 'Tidak boleh kosong !',
-               });
-          }
-
-          if (standar_pendidikan != '' &&
-               nama_kegiatan != '' &&
-               program != '' &&
-               sub_program != '' &&
-               uraian != '' &&
-               triwulan != '' &&
-               volume != '' &&
-               satuan != '' &&
-               harga_satuan != ''
-          ) {
+          if (standar_pendidikan != '' && nama_kegiatan != '' && program != '' && sub_program != '' && triwulan != '') {
 
                $.ajax({
-                    url: "<?php echo base_url(); ?>Perencanaan/save_edit/" + "<?php echo $id; ?>",
+                    url: "<?php echo base_url(); ?>Perencanaan/save_edit/" + "<?php echo $id; ?>" + '?sub_total' + sub_total + '&total' + total,
                     type: "POST",
                     data: $("#form").serialize(),
                     dataType: "JSON",
                     success: function(data) {
                          if (data.status) {
+                              for (i = 1; i < rowCount; i++) {
+                                   var namabarang = $('#namabarang' + i).val();
+                                   var satuan = $('#satuan' + i).val();
+                                   var qtyx = $('#qty' + i).val();
+                                   var qty = Number(parseInt(qtyx.replaceAll(',', '')));
+                                   var hargax = $('#harga' + i).val();
+                                   var harga = Number(parseInt(hargax.replaceAll(',', '')));
+                                   var jumlahx = $('#jumlah' + i).val();
+                                   var jumlah = Number(parseInt(jumlahx.replaceAll(',', '')));
+
+                                   if (namabarang == '') {
+                                        Swal.fire({
+                                             icon: 'danger',
+                                             title: 'Nama Barang',
+                                             text: 'Tidak boleh kosong !',
+                                        });
+                                   }
+                                   if (satuan == '') {
+                                        Swal.fire({
+                                             icon: 'danger',
+                                             title: 'Satuan',
+                                             text: 'Tidak boleh kosong !',
+                                        });
+                                   }
+                                   if (qty == '') {
+                                        Swal.fire({
+                                             icon: 'danger',
+                                             title: 'Volume',
+                                             text: 'Tidak boleh kosong !',
+                                        });
+                                   }
+                                   if (harga == '') {
+                                        Swal.fire({
+                                             icon: 'danger',
+                                             title: 'Harga',
+                                             text: 'Tidak boleh kosong !',
+                                        });
+                                   }
+                                   if (jumlah == '') {
+                                        Swal.fire({
+                                             icon: 'danger',
+                                             title: 'Jumlah',
+                                             text: 'Tidak boleh kosong !',
+                                        });
+                                   }
+                                   if (namabarang != '' && satuan != '' && qty != '' && harga != '' && jumlah != '') {
+                                        $.ajax({
+                                             url: "<?= site_url('Perencanaan/update_multi/') ?>" + id + '?namabarang=' + namabarang + '&satuan=' + satuan + '&qty=' + qty + '&harga=' + harga + '&jumlah=' + jumlah,
+                                             type: "GET",
+                                             dataType: "JSON",
+                                        });
+                                   }
+                              }
                               Swal.fire({
                                    icon: 'success',
                                    title: 'Sukses',
